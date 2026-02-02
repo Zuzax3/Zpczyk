@@ -4,8 +4,8 @@ export const portfolioContent = {
       id: 'doubt-it',
       title: 'Doubt It',
       meta: 'interactive / AI / satire',
-      summary: 'Short paragraph…',
-      image: '/projects/doubt-it.jpg'
+      summary: 'Doubt It is an interactive experiment that questions how truth is presented, trusted, and performed. Through a conversational AI assistant, statements are examined, reframed, and subtly destabilized. The project explores doubt not as a flaw, but as a necessary tool for critical thinking in an age of confident misinformation.',
+      image: '/projects/doubt_it1.png'
     } ,
 
     {

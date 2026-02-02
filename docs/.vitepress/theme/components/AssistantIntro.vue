@@ -218,9 +218,10 @@ onBeforeUnmount(() => {
     <div class="sheet-text">{{ message }}</div>
 
     <div v-if="stage === 'choose' && showButtons" class="choices">
-      <button class="choice" type="button" @click="goTo('projects')">projects//</button>
-      <button class="choice" type="button" @click="goTo('unfold')">UNFOLD//</button>
-      <button class="choice" type="button" @click="goTo('sketches')">sketches//</button>
+      <button class="choice" type="button" @click="goTo('projects')"> Show me projects</button>
+      <button class="choice" type="button" @click="goTo('unfold')">Show me designs</button>
+      <button class="choice" type="button" @click="goTo('sketches')">Show me sketches</button>
+      <button class="choice" type="button" @click="goTo('about')">About you</button>
     </div>
 
     <div v-else-if="stage === 'done'" class="choices">
