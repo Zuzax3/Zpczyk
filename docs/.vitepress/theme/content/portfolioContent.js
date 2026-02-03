@@ -10,7 +10,7 @@ export const portfolioContent = {
 
     {
      id: 'project-2',
-     title: 'Project 2',
+     title: 'Ein Leben, Eine Blume',
      meta: 'Data Drama //',
      summary: 'This project explores memory, absence and the quiet tension between what is recorded and what is lost.',
      image: '/projects/data_drama1.png',
@@ -38,8 +38,8 @@ export const portfolioContent = {
       id: 'unfold-01',
       title: 'UNFOLD// 01',
       meta: 'poster / typography',
-      summary: 'Short paragraph…',
-      image: '/unfold/unfold-01.jpg'
+      summary: 'Nothing here is meant to last. And maybe that’s the only mercy we get.',
+      image: '/unfold/thank_god.png'
     }
   ],
   sketches: [

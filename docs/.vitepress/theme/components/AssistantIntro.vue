@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, onBeforeUnmount, ref, computed, nextTick } from 'vue'
 import { portfolioContent as DATA } from '../content/portfolioContent'
+import AboutChat from './AboutChat.vue'
+
 /**
  * stages:
  * idle -> line1 -> line2 -> choose -> done
@@ -33,9 +35,9 @@ const panelView = ref('') // 'projects' | 'unfold' | 'sketches' | ''
 const panelDetail = ref(null) // item object or null
 const showMore = ref(false)   // toggelt die extra Inhalte in der Detail-View
 
+const aboutOpen = ref(false) // für den About-Chat
 
-
-const assistantPose = ref('idle') 
+const assistantPose = ref('idle')
 // 'idle' | 'active' | 'back'
 
 const heroImg = computed(() => {
@@ -169,8 +171,6 @@ function toggleMore(item){
   }
 }
 
-
-
 function reset() {
   selected.value = null
   line1.value = pick(line1Options)
@@ -190,6 +190,28 @@ function handleGlobalClick(e) {
   if (target && target.closest && target.closest('button')) return
 
   advance()
+}
+
+function openAbout() {
+  // Panel darf nicht offen sein
+  panelOpen.value = false
+  panelView.value = ''
+  panelDetail.value = null
+
+  // Assistant schaut dich an (optional)
+  assistantPose.value = 'active'
+  quietLine.value = ''
+  showButtons.value = false
+
+  aboutOpen.value = true
+}
+
+function closeAbout() {
+  aboutOpen.value = false
+  // optional: zurück zu deiner Auswahlstage
+  stage.value = 'choose'
+  showButtons.value = true
+  assistantPose.value = 'active'
 }
 
 
@@ -221,7 +243,7 @@ onBeforeUnmount(() => {
       <button class="choice" type="button" @click="goTo('projects')"> Show me projects</button>
       <button class="choice" type="button" @click="goTo('unfold')">Show me designs</button>
       <button class="choice" type="button" @click="goTo('sketches')">Show me sketches</button>
-      <button class="choice" type="button" @click="goTo('about')">About you</button>
+      <button class="choice" type="button" @click="openAbout">About you</button>
     </div>
 
     <div v-else-if="stage === 'done'" class="choices">
@@ -230,13 +252,15 @@ onBeforeUnmount(() => {
   </div>
 </div>
 
-<!-- Overlay TORSO (nur wenn Panel offen) -->
-<div class="overlay overlay-torso" v-else>
-  <!-- optional: im Panel-open idle gar nichts zeigen -->
+<AboutChat v-if="aboutOpen" @close="closeAbout" />
+
+<!-- Overlay TORSO nur wenn Panel offen (optional auch: && !aboutOpen) -->
+<div class="overlay overlay-torso" v-else-if="panelOpen">
   <div v-if="stage !== 'idle'" class="sheet">
     <div class="sheet-text">{{ message }}</div>
   </div>
 </div>
+
 
     <!-- RIGHT PANEL -->
 <aside class="panel" :class="{open: panelOpen, detail: !!panelDetail }">
@@ -676,8 +700,7 @@ onBeforeUnmount(() => {
   margin-top: 10px;
 }
 
-/* small utility for navigation inside detail content */
-.detail-nav { /* already defined above for placement */ }
+
 
 /* =========================
    MORE / expanded content
