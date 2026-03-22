@@ -1,6 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { portfolioContent as DATA } from '../content/portfolioContent'
+import PortfolioDetail from './PortfolioDetail.vue'
+const detailOpen = ref(false)
+const detailItem = ref(null)
+
 
 const categories = [
   { key: 'projects', label: 'Projects' },
@@ -19,12 +23,25 @@ onMounted(() => {
 
 function openItem(item) {
   console.log('open item', item)
+    detailItem.value = item
+  detailOpen.value = true
 }
+
+
+function closeDetail() {
+  detailOpen.value = false
+  detailItem.value = null
+}
+
+
 </script>
 
 
 <template>
   <div class="pv" :class="{ open: isOpen }">
+    <button class="pv-back" type="button" @click="$emit('close')">
+  ← Back
+</button>
     <div class="pv-stage"></div>
 
     <div class="pv-tabs">
@@ -61,6 +78,12 @@ function openItem(item) {
       </div>
     </div>
   </div>
+  <PortfolioDetail
+  :open="detailOpen"
+  :item="detailItem"
+  @close="closeDetail"
+/>
+
 </template>
 
 
@@ -190,6 +213,32 @@ function openItem(item) {
 /* subtle hover polish */
 .pv-drawer.active .pv-handle {
   filter: brightness(1.1);
+}
+
+.pv-back{
+  position: absolute;
+  top: 64px;
+  right: 28px;
+  z-index: 30;
+
+  height: 42px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,.12);
+  color: #111;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  pointer-events: auto;
+
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.pv-back:hover{
+  background: rgba(0,0,0,.18);
+  transform: translateY(-1px);
 }
 
 </style>

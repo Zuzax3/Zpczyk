@@ -123,9 +123,11 @@ function advancePortfolioIntro() {
     :class="{ sheetUp: state === 'portfolio.transition' }"
     @click="state === 'portfolio.intro' ? advancePortfolioIntro() : null"
   >
-    <div class="sheet-text">{{ assistantText }}</div>
 
-    <div v-if="state === 'home.menu'" class="cta-row">
+  <div class="sheet-text">{{ assistantText }}</div>
+
+    <div v-if="state === 'home.menu'" class="cta-wrap">
+    <div class="cta-row">
 
         <!-- 3 Buttons nur im Menü -->
         <div v-if="state === 'home.menu'" class="cta-row">
@@ -143,6 +145,7 @@ function advancePortfolioIntro() {
         </div>
       </div>
     </div>
+    </div>  
      </div>
 
    <PortfolioView v-if="state === 'portfolio.view'" @close="setState('home.menu')" />
@@ -192,10 +195,10 @@ function advancePortfolioIntro() {
 /* Figur größer + ruhiger platziert */
 .hero-img{
   position: absolute;
-  top: 55%;
+  top: 58%;
   left: 50%;
 
-  width: 520px;  /* HIER steuerst du die Größe */
+  width: clamp(420px, 38vw, 780px); /* 🔥 responsive Größe */
   height: auto;
 
   transform: translate(-50%, -50%);
@@ -211,14 +214,12 @@ function advancePortfolioIntro() {
 /* shared overlay base */
 .sheet{
   position: absolute;
-  left: 0;
-  right: 0;
-
-  /* >>> HIER: Position auf Brusthöhe <<< */
+  left: 50%;
   top: 52%;
-  transform: translateY(40px);
 
-  /* >>> HIER: Höhe <<< */
+  transform: translate(-50%, 40px); /* wichtig: -50% horizontal */
+
+  width: min(980px, 86vw);
   height: clamp(140px, 20vh, 240px);
 
   background: rgba(255,255,255,0.55);
@@ -226,12 +227,11 @@ function advancePortfolioIntro() {
   -webkit-backdrop-filter: blur(14px);
 
   display: flex;
-  flex-direction: column;   /* <-- erzwingt: Text oben, Buttons unten */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
- transition: transform 420ms cubic-bezier(.2,.9,.2,1);
-
+  transition: transform 420ms cubic-bezier(.2,.9,.2,1);
 }
 
 .sheet-inner{
@@ -239,13 +239,16 @@ function advancePortfolioIntro() {
   text-align: center;
   padding: 28px 22px;
   pointer-events: auto; /* Buttons später klickbar */
+   display: grid;
+  gap: 18px;
+  text-align: center;
 }
 
 .sheet-text{
-  margin: 0;
   font-size: clamp(12px, 1.05vw, 14px);
   line-height: 1.7;
   color: rgba(0,0,0,0.75);
+  margin-bottom: 16px;
 }
 
 
@@ -256,13 +259,16 @@ function advancePortfolioIntro() {
    ========================= */
 /* in deinem <style scoped> */
 
+.cta-wrap{
+  display: flex;
+  justify-content: center;
+}
 
+/* 3 gleich breite Buttons, exakt zentriert */
 .cta-row{
   display: grid;
-  grid-template-columns: repeat(3, minmax(180px, 1fr));
-  gap: 28px;
-  margin-top: 22px;
-  align-items: center;
+  grid-template-columns: repeat(3, 240px);
+  gap: 20px;
 }
 
 .cta{
@@ -293,10 +299,6 @@ function advancePortfolioIntro() {
 }
 
 
-
-.sheetUp{
-  transform: translateY(-28vh); /* tweak */
-}
 
 /* =========================
    responsive tweaks
