@@ -1,12 +1,16 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { portfolioContent as DATA } from '../content/portfolioContent'
+import PortfolioUnfoldDetail from './PortfolioUnfoldDetail.vue'
 import PortfolioDetail from './PortfolioDetail.vue'
 
 const emit = defineEmits(['close', 'open-detail', 'close-detail'])
 
 const detailOpen = ref(false)
 const detailItem = ref(null)
+
+const unfoldDetailOpen = ref(false)
+const unfoldDetailItem = ref(null)
 
 const categories = [
   { key: 'projects', label: 'Projects' },
@@ -23,7 +27,14 @@ onMounted(() => {
   })
 })
 
-function openItem(item) {
+function openItem(item, categoryKey) {
+  if (categoryKey === 'unfold') {
+    unfoldDetailItem.value = item
+    unfoldDetailOpen.value = true
+    emit('open-detail')
+    return
+  }
+
   detailItem.value = item
   detailOpen.value = true
   emit('open-detail')
@@ -34,12 +45,19 @@ function closeDetail() {
   detailItem.value = null
   emit('close-detail')
 }
+
+function closeUnfoldDetail() {
+  unfoldDetailOpen.value = false
+  unfoldDetailItem.value = null
+  emit('close-detail')
+}
+
 </script>
 
 <template>
   <div class="pv" :class="{ open: isOpen }">
     <button
-      v-if="!detailOpen"
+      v-if="!detailOpen && !unfoldDetailOpen"
       class="pv-back"
       type="button"
       @click="emit('close')"
@@ -67,7 +85,7 @@ function closeDetail() {
       :key="item.id"
       class="pv-item"
       type="button"
-      @click="openItem(item)"
+      @click="openItem(item, c.key)"
     >
       {{ item.title }}
     </button>
@@ -82,11 +100,17 @@ function closeDetail() {
     </div>
   </div>
 
-  <PortfolioDetail
-    :open="detailOpen"
-    :item="detailItem"
-    @close="closeDetail"
-  />
+<PortfolioDetail
+  :open="detailOpen"
+  :item="detailItem"
+  @close="closeDetail"
+/>
+
+<PortfolioUnfoldDetail
+  :open="unfoldDetailOpen"
+  :item="unfoldDetailItem"
+  @close="closeUnfoldDetail"
+/>
 </template>
 
 <style scoped>

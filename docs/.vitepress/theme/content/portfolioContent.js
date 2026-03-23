@@ -54,7 +54,7 @@ export const portfolioContent = {
   id: 'doubt-it',
   title: 'Doubt It',
 
-  layout: 'poster',
+  layout: 'editorial',
   displayWord: 'Veritas',
   meta: 'Interactive Website / AI / Concept Design',
 
@@ -146,7 +146,7 @@ gallery: [
 galleryLayout: ['small', 'small', 'wide'],
 
 theme: {
-  bg: '#033976ff'
+  bg: '#033976eb'
 },
 
 sections: {
@@ -250,7 +250,7 @@ gallery: [
 galleryLayout: ['small', 'small', 'small'],
 
 theme: {
-  bg: '#444e37ff'
+  bg: '#444e37e7'
 },
 
 sections: {
@@ -299,7 +299,7 @@ gallery: [
 galleryLayout: ['small', 'small', 'wide'],
 
 theme: {
-  bg: '#dab10bff'
+  bg: '#dab10bef'
 },
 
 sections: {
@@ -308,8 +308,57 @@ sections: {
   extraTitle: 'My Role',
   galleryTitle: 'Film Stills'
 }
+},
+
+{
+id: 'a-wanderers-journey',
+title: "A Wanderer’s Journey",
+
+layout: 'editorial',
+displayWord: 'Lila',
+meta: 'Short Animation / Storytelling / Solo Project',
+
+statement: 'Caught between routine and imagined freedom',
+
+sideHighlight: 'A self-made animated short about escapism, identity, and inner distance',
+
+description: [
+  '"A Wanderer’s Journey" is a short animated film following Lila, a young woman struggling with emotional exhaustion, monotony, and a growing sense of disconnection from everyday life. Framed through a therapy session, the film moves between lived reality and dreamlike inner landscapes, revealing how escapism becomes both comfort and conflict.',
+  'As Lila speaks about her routines, work pressure, and emotional paralysis, the animation gradually shifts into surreal environments filled with open skies, floating fish, reflections, and symbolic spaces. These dream sequences do not simply offer escape, but express her search for meaning, belonging, and a version of life that feels less restricted.'
+],
+
+sideText: [
+  'The film uses contrast as a central narrative device: between confined interiors and vast dreamscapes, between muted daily structures and luminous surreal imagery, and between stillness and emotional movement. The therapy session provides the framework, while Lila’s inner world unfolds visually through symbolic transitions and reflective voice-over.',
+  'Developed as a solo project, the animation focuses on atmosphere, pacing, and emotional resonance rather than action. Recurring motifs such as clouds, windows, water, mirrors, and sky creatures create a visual language of distance, longing, and quiet transformation.'
+],
+
+extraText: [
+  'At its core, the film explores themes of existential uncertainty, dissociation, and the fragile relationship between external routine and inner life. Lila’s dreams become a space where her subconscious can articulate what her waking life suppresses: the desire for freedom, meaning, and emotional connection.',
+  'Rather than resolving this tension completely, the ending suggests a subtle shift. The boundary between reality and dream remains porous, but no longer feels threatening. What once appeared as escapism begins to read as acceptance — a quiet recognition that inner worlds can also hold truth.'
+],
+
+image: '/projects/wanderers0.png',
+
+gallery: [
+  '/projects/wanderers1.png',
+  '/projects/wanderers2.png',
+  '/projects/wanderers3.png'
+],
+
+galleryLayout: ['wide', 'wide', 'wide'],
+
+theme: {
+  bg: '#0859bde5'
+},
+
+sections: {
+  introTitle: 'Concept',
+  sideTitle: 'Visual Language',
+  extraTitle: 'Narrative',
+  galleryTitle: 'Storyboard'
 }
 
+}
 
 
   ],
@@ -318,11 +367,17 @@ sections: {
 
 
   unfold: [
-    {
-      id: 'unfold-01',
-      title: 'UNFOLD// 01'
+  {
+    id: 'unfold-01',
+    title: 'UNFOLD // 01',
+    meta: 'Visual / Study / 2026',
+    description: 'A quiet visual fragment exploring surface, structure and spatial rhythm.',
+    image: '/unfold/thank_god.png',
+    theme: {
+      bg: '#121314e4'
     }
-  ],
+  }
+],
 
   sketches: [
     {
