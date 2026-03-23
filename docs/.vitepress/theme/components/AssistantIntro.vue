@@ -5,42 +5,42 @@ import AboutChat from './AboutChat.vue'
 
 /**
  * STATES:
- * home.idle     -> nur Bild, kein Text
- * home.speaking -> Glas-Rect + Introtext
- * home.menu     -> Glas-Rect + 3 Buttons
- * about.chat    -> AboutChat overlay offen
- * talk.vn       -> placeholder
- * portfolio     -> placeholder
+ * home.idle
+ * home.speaking
+ * home.menu
+ * about.chat
+ * talk.vn
+ * portfolio.intro
+ * portfolio.transition
+ * portfolio.view
+ * portfolio.detail
  */
-const state = ref('home.idle', ' home.speaking', 'home.menu', 'portfolio.intro', ' portfolio.transition', 'portfolio.view')
-// home.idle | home.speaking | home.menu | portfolio.intro | portfolio.transition | 
+const state = ref('home.idle')
 
 const showSheet = computed(() =>
   state.value === 'home.speaking' ||
   state.value === 'home.menu' ||
-  state.value === 'portfolio.intro' ||
-  state.value === 'portfolio.transition'
+  state.value === 'portfolio.intro'
 )
 
-const assistantPose = ref('idle') // 'idle' | 'active'
-const assistantText = ref('')     // Text im Glas-Rect
+const assistantPose = ref('idle')
+const assistantText = ref('')
 
 const heroImg = computed(() => {
+  if (state.value === 'portfolio.detail') return '/assistant_back.png'
   if (assistantPose.value === 'active') return '/assistant_active.png'
   return '/assistant_idle.png'
 })
 
-function setState(next) {
+function setState(next: string) {
   state.value = next
 }
 
-/** Click irgendwo ins Bild -> nur Home-States */
-function onSceneClick(e) {
-  // Wenn About offen ist: nichts im Hintergrund klicken
+function onSceneClick(e: MouseEvent) {
   if (state.value === 'about.chat') return
 
-  // clicks auf buttons nicht als scene-click werten
-  if (e.target.closest?.('button')) return
+  const target = e.target as HTMLElement | null
+  if (target?.closest?.('button')) return
 
   if (state.value === 'home.idle') {
     assistantPose.value = 'active'
@@ -55,10 +55,13 @@ function onSceneClick(e) {
     return
   }
 
-  // home.menu: click ins leere macht nichts
+  if (state.value === 'portfolio.intro') {
+    advancePortfolioIntro()
+    return
+  }
 }
 
-function chooseHomeAction(which) {
+function chooseHomeAction(which: string) {
   if (which === 'portfolio') {
     startPortfolioIntro()
     return
@@ -76,12 +79,12 @@ function chooseHomeAction(which) {
   }
 }
 
-
 const introLines = [
-  "Yes. A portfolio. Not a confession, but close.",
-  "Work, plus the noise around it.",
-  "Pick a door. I’ll pretend it was your idea."
+  'Yes. A portfolio. Not a confession, but close.',
+  'Work, plus the noise around it.',
+  'Pick a door. I’ll pretend it was your idea.'
 ]
+
 const introIndex = ref(0)
 
 function startPortfolioIntro() {
@@ -98,69 +101,55 @@ function advancePortfolioIntro() {
     return
   }
 
-  setState('portfolio.transition')
-
-  setTimeout(() => {
-    setState('portfolio.view')
-  }, 420)
+  setState('portfolio.view')
 }
-
 </script>
 
-
-
 <template>
-  <section class="hero" aria-label="assistant hero">
-    <!-- Background drawing -->
-    <div class="hero-media" @click="onSceneClick">
+<section class="hero" aria-label="assistant hero" @click="onSceneClick">
+  <div class="hero-media">
       <img class="hero-img" :src="heroImg" alt="" draggable="false" />
     </div>
 
-    <!-- Glass Rect + Text -->
-<div v-if="showSheet" class="overlay overlay-torso">
-  <div
-    class="sheet"
-    :class="{ sheetUp: state === 'portfolio.transition' }"
-    @click="state === 'portfolio.intro' ? advancePortfolioIntro() : null"
-  >
+    <div v-if="showSheet" class="overlay overlay-torso">
+    <div
+       class="sheet"
+        >
+        <div class="sheet-text">{{ assistantText }}</div>
 
-  <div class="sheet-text">{{ assistantText }}</div>
+        <div v-if="state === 'home.menu'" class="cta-wrap">
+          <div class="cta-row">
+            <button class="cta" type="button" @click="chooseHomeAction('portfolio')">
+              This is a portfolio?
+            </button>
 
-    <div v-if="state === 'home.menu'" class="cta-wrap">
-    <div class="cta-row">
+            <button class="cta cta-primary" type="button" @click="chooseHomeAction('talk')">
+              Let’s Talk
+            </button>
 
-        <!-- 3 Buttons nur im Menü -->
-        <div v-if="state === 'home.menu'" class="cta-row">
-          <button class="cta" type="button" @click="chooseHomeAction('portfolio')">
-            This is a portfolio?
-          </button>
-
-          <button class="cta cta-primary" type="button" @click="chooseHomeAction('talk')">
-            Let’s Talk
-          </button>
-
-          <button class="cta" type="button" @click="chooseHomeAction('about')">
-            About you
-          </button>
+            <button class="cta" type="button" @click="chooseHomeAction('about')">
+              About you
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    </div>  
-     </div>
 
-   <PortfolioView v-if="state === 'portfolio.view'" @close="setState('home.menu')" />
+    <PortfolioView
+      v-if="state === 'portfolio.view' || state === 'portfolio.detail'"
+      @close="setState('home.menu')"
+      @open-detail="setState('portfolio.detail')"
+      @close-detail="setState('portfolio.view')"
+    />
 
-   <AboutChat v-if="state === 'about.chat'" @close="setState('home.menu')" />
-
-
+    <AboutChat
+      v-if="state === 'about.chat'"
+      @close="setState('home.menu')"
+    />
   </section>
 </template>
 
-
 <style scoped>
-/* =========================
-   Variables / palette
-   ========================= */
 :root{
   --panel-bg: #151515;
   --panel-radius: 14px;
@@ -170,21 +159,16 @@ function advancePortfolioIntro() {
   --accent-hover: rgba(255,255,255,.06);
 }
 
-/* =========================
-   HERO / background
-   ========================= */
 .hero{
-  position: fixed;     /* statt relative */
-  inset: 0;            /* top/right/bottom/left = 0 */
+  position: fixed;
+  inset: 0;
   width: 100%;
   height: 100dvh;
   overflow: hidden;
   background: #fff;
-  z-index: 0;          /* ggf. 1, falls was drüber liegt */
+  z-index: 0;
 }
 
-
-/* Klickfläche bleibt komplett */
 .hero-media{
   position: absolute;
   inset: 0;
@@ -192,56 +176,31 @@ function advancePortfolioIntro() {
   user-select: none;
 }
 
-/* Figur größer + ruhiger platziert */
 .hero-img{
   position: absolute;
   top: 58%;
   left: 50%;
-
-  width: clamp(420px, 38vw, 780px); /* 🔥 responsive Größe */
+  width: clamp(420px, 38vw, 780px);
   height: auto;
-
   transform: translate(-50%, -50%);
   object-fit: contain;
 }
 
-
-
-
-/* =========================
-   OVERLAY / assistant sheet
-   ========================= */
-/* shared overlay base */
 .sheet{
   position: absolute;
   left: 50%;
   top: 52%;
-
-  transform: translate(-50%, 40px); /* wichtig: -50% horizontal */
-
+  transform: translate(-50%, 40px);
   width: min(980px, 86vw);
   height: clamp(140px, 20vh, 240px);
-
   background: rgba(255,255,255,0.55);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   transition: transform 420ms cubic-bezier(.2,.9,.2,1);
-}
-
-.sheet-inner{
-  width: min(980px, 86vw);
-  text-align: center;
-  padding: 28px 22px;
-  pointer-events: auto; /* Buttons später klickbar */
-   display: grid;
-  gap: 18px;
-  text-align: center;
 }
 
 .sheet-text{
@@ -252,19 +211,11 @@ function advancePortfolioIntro() {
 }
 
 
-
-
-/* =========================
-   CHOICES / buttons
-   ========================= */
-/* in deinem <style scoped> */
-
 .cta-wrap{
   display: flex;
   justify-content: center;
 }
 
-/* 3 gleich breite Buttons, exakt zentriert */
 .cta-row{
   display: grid;
   grid-template-columns: repeat(3, 240px);
@@ -297,17 +248,4 @@ function advancePortfolioIntro() {
     gap: 14px;
   }
 }
-
-
-
-/* =========================
-   responsive tweaks
-   ========================= */
-@media (max-width: 720px){
-  .more-gallery { grid-template-columns: 1fr; }
-  .more-img { height: 260px; }
-}
-
-/* end of organized styles */
 </style>
-

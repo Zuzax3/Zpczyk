@@ -2,9 +2,11 @@
 import { ref, onMounted } from 'vue'
 import { portfolioContent as DATA } from '../content/portfolioContent'
 import PortfolioDetail from './PortfolioDetail.vue'
+
+const emit = defineEmits(['close', 'open-detail', 'close-detail'])
+
 const detailOpen = ref(false)
 const detailItem = ref(null)
-
 
 const categories = [
   { key: 'projects', label: 'Projects' },
@@ -22,26 +24,29 @@ onMounted(() => {
 })
 
 function openItem(item) {
-  console.log('open item', item)
-    detailItem.value = item
+  detailItem.value = item
   detailOpen.value = true
+  emit('open-detail')
 }
-
 
 function closeDetail() {
   detailOpen.value = false
   detailItem.value = null
+  emit('close-detail')
 }
-
-
 </script>
-
 
 <template>
   <div class="pv" :class="{ open: isOpen }">
-    <button class="pv-back" type="button" @click="$emit('close')">
-  ← Back
-</button>
+    <button
+      v-if="!detailOpen"
+      class="pv-back"
+      type="button"
+      @click="emit('close')"
+    >
+      x
+    </button>
+
     <div class="pv-stage"></div>
 
     <div class="pv-tabs">
@@ -53,8 +58,6 @@ function closeDetail() {
         @mouseleave="activeCat = null"
       >
         <div class="pv-drawer" :class="{ active: activeCat === c.key }">
-          
-          <!-- CONTENT -->
           <div class="pv-drawer-content">
             <div class="pv-title">{{ c.label }}</div>
 
@@ -71,24 +74,20 @@ function closeDetail() {
             </div>
           </div>
 
-          <!-- HANDLE (NO TEXT) -->
           <div class="pv-handle"></div>
-
         </div>
       </div>
     </div>
   </div>
-  <PortfolioDetail
-  :open="detailOpen"
-  :item="detailItem"
-  @close="closeDetail"
-/>
 
+  <PortfolioDetail
+    :open="detailOpen"
+    :item="detailItem"
+    @close="closeDetail"
+  />
 </template>
 
-
 <style scoped>
-
 .pv {
   position: absolute;
   inset: 0;
@@ -96,7 +95,6 @@ function closeDetail() {
   z-index: 20;
 }
 
-/* stage */
 .pv-stage {
   position: absolute;
   left: 0;
@@ -107,7 +105,6 @@ function closeDetail() {
   background: #3a3a3a;
   border-top-left-radius: 80px;
   border-top-right-radius: 80px;
-
   transform: translateY(100%);
   transition: transform 520ms cubic-bezier(.2,.9,.2,1);
 }
@@ -116,12 +113,11 @@ function closeDetail() {
   transform: translateY(0);
 }
 
-/* grid */
 .pv-tabs {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0; /* important: flush to bottom */
+  bottom: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 48px;
@@ -130,17 +126,14 @@ function closeDetail() {
   align-items: end;
 }
 
-/* column */
 .pv-col {
   position: relative;
   display: flex;
   justify-content: center;
 }
 
-/* drawer */
 .pv-drawer {
-  --handle-h: 160px; /* bigger handle = sticks out more */
-
+  --handle-h: 160px;
   width: 100%;
   max-width: 520px;
   height: min(800px, 60vh);
@@ -148,24 +141,19 @@ function closeDetail() {
   overflow: hidden;
   background: #111;
   box-shadow: 0 22px 70px rgba(0,0,0,.25);
-
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   margin: 0 auto;
-
-  /* only handle visible */
   transform: translateY(calc(100% - var(--handle-h)));
   transition: transform 460ms cubic-bezier(.2,.9,.2,1);
 }
 
-/* open */
 .pv-drawer.active {
   transform: translateY(0);
 }
 
-/* content */
 .pv-drawer-content {
   height: calc(100% - var(--handle-h));
   padding: 44px 34px;
@@ -173,7 +161,6 @@ function closeDetail() {
   flex-direction: column;
 }
 
-/* title */
 .pv-title {
   color: #fff;
   font-size: 44px;
@@ -181,7 +168,6 @@ function closeDetail() {
   margin-bottom: 28px;
 }
 
-/* list */
 .pv-list {
   display: grid;
   gap: 16px;
@@ -203,42 +189,36 @@ function closeDetail() {
   color: rgba(255,255,255,.95);
 }
 
-/* handle (no text, just visual block) */
 .pv-handle {
   height: var(--handle-h);
   background: #111;
   border-top: 1px solid rgba(255,255,255,.05);
 }
 
-/* subtle hover polish */
 .pv-drawer.active .pv-handle {
   filter: brightness(1.1);
 }
 
-.pv-back{
+.pv-back {
   position: absolute;
   top: 64px;
   right: 28px;
   z-index: 30;
-
   height: 42px;
   padding: 0 16px;
   border: none;
   border-radius: 999px;
-
   background: rgba(0,0,0,.12);
   color: #111;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   pointer-events: auto;
-
   transition: background 180ms ease, transform 180ms ease;
 }
 
-.pv-back:hover{
+.pv-back:hover {
   background: rgba(0,0,0,.18);
   transform: translateY(-1px);
 }
-
 </style>

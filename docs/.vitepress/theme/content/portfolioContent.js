@@ -1,53 +1,52 @@
 export const portfolioContent = {
   projects: [
     {
-      id: 'doubt-it',
-      title: 'Doubt It',
-      meta: 'interactive / AI / satire',
-      summary: 'Doubt It is an interactive experiment that questions how truth is presented, trusted, and performed. Through a conversational AI assistant, statements are examined, reframed, and subtly destabilized. The project explores doubt not as a flaw, but as a necessary tool for critical thinking in an age of confident misinformation.',
-      image: '/projects/doubt_it1.png'
-    } ,
-
-    {
-     id: 'project-2',
-     title: 'Ein Leben, Eine Blume',
-     meta: 'Data Drama //',
-     summary: 'This project explores memory, absence and the quiet tension between what is recorded and what is lost.',
-     image: '/projects/data_drama1.png',
-     more: {
-       assistantLine: "Alright. You want the longer version. I respect the commitment.",
-       text: [
-         "One Life, One Flower is an artistic installation and performance that visualizes the tragedy of human loss in the Middle East conflict. Each handcrafted poppy flower represents a lost life.",
-         "The performance illustrates the never-ending process of remembrance: a person relentlessly crafts flowers while their hands gradually turn reddish—a silent symbol of the traces of violence and loss.",
-         "The aim is to focus on the victims as individuals with hopes and dreams.",
-         "Longer paragraph two…"
-       ],
-       gallery: [
-         '/projects/data_drama2.JPG',
-         '/projects/data_drama3.JPG'
-       ]
-     }
-    }
-
+    id: 'flower-life',
+  title: 'Ein Leben Eine Blume',
+  description: [
+    'Ein Leben, eine Blume ist eine künstlerische Installation und Performance, die die Tragödie menschlicher Verluste im Nahostkonflikt sichtbar macht. Jede handgefertigte Mohnblume repräsentiert ein verlorenes Leben. Die Performance verdeutlicht den nie endenden Prozess des Erinnerns: Eine Person fertigt unaufhörlich Blumen an, während sich ihre Hände allmählich rötlich verfärben – ein stilles Symbol für die Spuren von Gewalt und Verlust. Ziel ist es, die Opfer als Individuen mit Hoffnungen und Träumen in den Fokus zu rücken.',
+    'Das Projekt soll das abstrakte Ausmaß des Verlusts greifbar machen und den anonymen Zahlen persönliche Schicksale entgegensetzen. Die Performance dient als stilles Gedenken und ermöglicht eine emotionale Verbindung zu den Opfern. Ziel ist es, die Zuschauer*innen dazu zu bringen, innezuhalten, zu reflektieren und sich bewusst zu machen, dass hinter jeder Zahl ein Mensch mit einer Geschichte steht. Durch diese Darstellung soll Empathie geweckt und die Erinnerung an diese Menschen lebendig gehalten werden.'
+  ],
+  sideText: [
+    'Das zentrale Element der Installation sind hunderte handgefertigte Mohnblumen aus Seidenpapier und Draht. Jede Blume trägt ein kleines Schild mit dem Alter eines Opfers. Die kontinuierliche Produktion dieser Blumen durch eine einzelne Person symbolisiert die unermessliche Zahl der verlorenen Leben und die Last des Erinnerns.',
+    '-Krepppapier in Rot',
+    '-Draht für die Blütenstiele',
+    '- Kleine Papieretiketten mit den Altersangaben der Opfer',
+    '-Heißkleber'
+  ],
+  extraText: [
+    'Die Recherche für dieses Projekt umfasste eine detaillierte Auseinandersetzung mit künstlerischen Gedenkpraktiken, historischen Kontexten und den emotionalen Auswirkungen von performativen Installationen. Analysen von Kunstprojekten, die sich mit Verlust und Erinnerung beschäftigen.',
+    'Zudem wurden Berichte über den Nahostkonflikt ausgewertet, um ein tieferes Verständnis der menschlichen Tragödien zu gewinnen.'
   ],
 
+  image: '/projects/data_drama1.png',
+  gallery: [
+    '/projects/data_drama1.png',
+    '/projects/data_drama2.JPG',
+    '/projects/data_drama3.JPG'
+  ],
+  theme: {
+     bg: '#b92a06e8'
+  },
 
+  sections: {
+        introTitle: 'Konzept',
+        sideTitle: 'Material & Prozess',
+        extraTitle: 'Recherche'
+      }
+
+}
+  ],
   unfold: [
     {
       id: 'unfold-01',
-      title: 'UNFOLD// 01',
-      meta: 'poster / typography',
-      summary: 'Nothing here is meant to last. And maybe that’s the only mercy we get.',
-      image: '/unfold/thank_god.png'
+      title: 'UNFOLD// 01'
     }
   ],
   sketches: [
     {
       id: 'sketch-01',
-      title: 'Sketch// 01',
-      meta: 'ink / fragment',
-      summary: 'Short paragraph…',
-      image: '/sketches/sketch-01.jpg'
+      title: 'Sketch// 01'
     }
   ]
 }
