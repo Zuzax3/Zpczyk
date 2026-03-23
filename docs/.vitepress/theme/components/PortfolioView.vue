@@ -59,20 +59,22 @@ function closeDetail() {
       >
         <div class="pv-drawer" :class="{ active: activeCat === c.key }">
           <div class="pv-drawer-content">
-            <div class="pv-title">{{ c.label }}</div>
+  <div class="pv-title">{{ c.label }}</div>
 
-            <div class="pv-list">
-              <button
-                v-for="item in DATA[c.key]"
-                :key="item.id"
-                class="pv-item"
-                type="button"
-                @click="openItem(item)"
-              >
-                {{ item.title }}
-              </button>
-            </div>
-          </div>
+  <div class="pv-list">
+    <button
+      v-for="item in DATA[c.key]"
+      :key="item.id"
+      class="pv-item"
+      type="button"
+      @click="openItem(item)"
+    >
+      {{ item.title }}
+    </button>
+  </div>
+
+  <div class="pv-scroll-hint" aria-hidden="true">↓</div>
+</div>
 
           <div class="pv-handle"></div>
         </div>
@@ -156,9 +158,21 @@ function closeDetail() {
 
 .pv-drawer-content {
   height: calc(100% - var(--handle-h));
-  padding: 44px 34px;
+  padding: 44px 34px 24px;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+
+  position: relative;
+}
+
+.pv-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 12px;
+  overflow-y: auto;
+  padding-right: 8px;
+  min-height: 0;
 }
 
 .pv-title {
@@ -168,11 +182,6 @@ function closeDetail() {
   margin-bottom: 28px;
 }
 
-.pv-list {
-  display: grid;
-  gap: 16px;
-  margin-top: 12px;
-}
 
 .pv-item {
   background: transparent;
@@ -221,4 +230,42 @@ function closeDetail() {
   background: rgba(0,0,0,.18);
   transform: translateY(-1px);
 }
+
+.pv-scroll-hint {
+  flex-shrink: 0;
+  margin-top: 14px;
+  text-align: center;
+  font-size: 22px;
+  line-height: 1;
+  color: rgba(255,255,255,.35);
+  animation: pv-bounce 1.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pv-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.7;
+  }
+}
+
+.pv-drawer-content::after {
+  content: "";
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 44px;
+  height: 40px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(17,17,17,0),
+    rgba(17,17,17,0.95)
+  );
+}
+
 </style>

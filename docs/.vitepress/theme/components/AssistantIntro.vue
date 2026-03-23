@@ -180,7 +180,7 @@ function advancePortfolioIntro() {
   position: absolute;
   top: 58%;
   left: 50%;
-  width: clamp(420px, 38vw, 780px);
+  width: clamp(220px, 28vw, 680px);
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: contain;
