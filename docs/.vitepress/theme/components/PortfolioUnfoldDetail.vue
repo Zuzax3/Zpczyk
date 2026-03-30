@@ -15,32 +15,42 @@
               ×
             </button>
 
-            <div class="ud-content">
-              <div class="ud-head">
-                <div class="ud-meta" v-if="item?.meta">
-                  {{ item.meta }}
+            <button class="ud-nav ud-nav-left" type="button" @click="goPrev">
+              ←
+            </button>
+
+            <button class="ud-nav ud-nav-right" type="button" @click="goNext">
+              →
+            </button>
+
+            <transition :name="`slide-${direction}`">
+              <div class="ud-content" :key="item?.id">
+                <div class="ud-head">
+                  <div class="ud-meta" v-if="item?.meta">
+                    {{ item.meta }}
+                  </div>
+
+                  <h1 class="ud-title">
+                    {{ item?.title || 'UNFOLD' }}
+                  </h1>
                 </div>
 
-                <h1 class="ud-title">
-                  {{ item?.title || 'UNFOLD' }}
-                </h1>
-              </div>
+                <div class="ud-image-wrap" v-if="item?.image">
+                  <img
+                    :src="item.image"
+                    alt=""
+                    class="ud-image"
+                    draggable="false"
+                  />
+                </div>
 
-              <div class="ud-image-wrap" v-if="item?.image">
-                <img
-                  :src="item.image"
-                  alt=""
-                  class="ud-image"
-                  draggable="false"
-                />
+                <div class="ud-text" v-if="textParagraphs.length">
+                  <p v-for="(paragraph, index) in textParagraphs" :key="index">
+                    {{ paragraph }}
+                  </p>
+                </div>
               </div>
-
-              <div class="ud-text" v-if="textParagraphs.length">
-                <p v-for="(paragraph, index) in textParagraphs" :key="index">
-                  {{ paragraph }}
-                </p>
-              </div>
-            </div>
+            </transition>
           </section>
         </div>
       </div>
@@ -49,7 +59,7 @@
 </template>
 
 <script setup>
-import { computed, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
   open: {
@@ -62,7 +72,9 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'next', 'prev'])
+
+const direction = ref('next')
 
 const textParagraphs = computed(() => {
   if (Array.isArray(props.item?.description)) return props.item.description
@@ -74,6 +86,16 @@ const textParagraphs = computed(() => {
 
 function closeDetail() {
   emit('close')
+}
+
+function goNext() {
+  direction.value = 'next'
+  emit('next')
+}
+
+function goPrev() {
+  direction.value = 'prev'
+  emit('prev')
 }
 
 watch(
@@ -116,7 +138,6 @@ watch(
   overflow-y: auto;
   overflow-x: hidden;
   background: var(--detail-bg);
-    backdrop-filter: blur(6px);
   box-shadow: 0 30px 120px rgba(0, 0, 0, 0.16);
 }
 
@@ -126,7 +147,7 @@ watch(
   margin-left: auto;
   margin-right: 20px;
   margin-top: 20px;
-  z-index: 10;
+  z-index: 30;
   width: 44px;
   height: 44px;
   border: none;
@@ -146,11 +167,48 @@ watch(
   transform: translateY(-1px);
 }
 
+.ud-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(0, 0, 0, 0.16);
+  color: white;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 180ms ease;
+  opacity: 0;
+}
+
+.ud-card:hover .ud-nav {
+  opacity: 1;
+}
+
+.ud-nav:hover {
+  background: rgba(0, 0, 0, 0.28);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.ud-nav-left {
+  left: 24px;
+}
+
+.ud-nav-right {
+  right: 24px;
+}
+
 .ud-content {
   min-height: 100%;
   display: grid;
   grid-template-rows: auto 1fr auto;
   padding: 24px 100px 56px;
+  will-change: transform;
 }
 
 .ud-head {
@@ -195,16 +253,16 @@ watch(
 }
 
 .ud-text {
-  max-width: 760px;
-  padding-top: 10px;
+  max-width: 520px;
+  margin: 28px auto 0;
+  text-align: center;
 }
 
 .ud-text p {
-  margin: 0 0 18px;
-  color: rgba(255, 255, 255, 0.94);
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
   font-size: clamp(14px, 1vw, 16px);
-  line-height: 1.85;
-  max-width: 62ch;
+  line-height: 1.7;
 }
 
 .ud-card::-webkit-scrollbar {
@@ -220,37 +278,79 @@ watch(
   background: transparent;
 }
 
+/* panel open */
 .ud-fade-enter-active,
 .ud-fade-leave-active {
-  transition: opacity 240ms ease;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease;
 }
 
-.ud-fade-enter-from,
-.ud-fade-leave-to {
-  opacity: 0;
-}
-
-.ud-fade-enter-from .ud-card {
+.ud-fade-enter-from {
   transform: translateY(60px);
   opacity: 0;
 }
 
-.ud-fade-enter-to .ud-card {
+.ud-fade-enter-to {
   transform: translateY(0);
   opacity: 1;
 }
 
-.ud-fade-leave-from .ud-card {
+.ud-fade-leave-from {
   transform: translateY(0);
   opacity: 1;
 }
 
-.ud-fade-leave-to .ud-card {
+.ud-fade-leave-to {
   transform: translateY(40px);
   opacity: 0;
 }
 
-.ud-card {
+/* inner slide */
+.slide-next-enter-from {
+  transform: translateX(120px);
+  opacity: 0;
+}
+
+.slide-next-enter-to {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-next-leave-from {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-next-leave-to {
+  transform: translateX(-120px);
+  opacity: 0;
+}
+
+.slide-prev-enter-from {
+  transform: translateX(-120px);
+  opacity: 0;
+}
+
+.slide-prev-enter-to {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-prev-leave-from {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-prev-leave-to {
+  transform: translateX(120px);
+  opacity: 0;
+}
+
+.slide-next-enter-active,
+.slide-next-leave-active,
+.slide-prev-enter-active,
+.slide-prev-leave-active {
   transition:
     transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 240ms ease;
@@ -277,6 +377,10 @@ watch(
   .ud-image {
     max-height: 54vh;
   }
+
+  .ud-nav {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 720px) {
@@ -297,10 +401,23 @@ watch(
     max-height: 46vh;
   }
 
+  .ud-text {
+    max-width: 100%;
+    margin-top: 22px;
+  }
+
   .ud-close {
     top: 16px;
     margin-right: 16px;
     margin-top: 16px;
+  }
+
+  .ud-nav-left {
+    left: 12px;
+  }
+
+  .ud-nav-right {
+    right: 12px;
   }
 }
 </style>

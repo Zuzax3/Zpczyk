@@ -1,4 +1,7 @@
 export default {
   title: 'Zpczyk//',
-  description: 'Portfolio'
+  description: 'Portfolio',
+  themeConfig: {
+    appearance: false
+  }
 }

@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { portfolioContent as DATA } from '../content/portfolioContent'
 import PortfolioUnfoldDetail from './PortfolioUnfoldDetail.vue'
 import PortfolioDetail from './PortfolioDetail.vue'
+import PortfolioSketchDetail from './PortfolioSketchDetail.vue'
 
 const emit = defineEmits(['close', 'open-detail', 'close-detail'])
 
@@ -11,6 +12,9 @@ const detailItem = ref(null)
 
 const unfoldDetailOpen = ref(false)
 const unfoldDetailItem = ref(null)
+
+const sketchDetailOpen = ref(false)
+const sketchDetailItem = ref(null)
 
 const categories = [
   { key: 'projects', label: 'Projects' },
@@ -35,6 +39,13 @@ function openItem(item, categoryKey) {
     return
   }
 
+  if (categoryKey === 'sketches') {
+    sketchDetailItem.value = item
+    sketchDetailOpen.value = true
+    emit('open-detail')
+    return
+  }
+
   detailItem.value = item
   detailOpen.value = true
   emit('open-detail')
@@ -52,12 +63,66 @@ function closeUnfoldDetail() {
   emit('close-detail')
 }
 
+function closeSketchDetail() {
+  sketchDetailOpen.value = false
+  sketchDetailItem.value = null
+  emit('close-detail')
+}
+
+function getNextItem(currentItem, categoryKey) {
+  const list = DATA[categoryKey]
+  const index = list.findIndex(i => i.id === currentItem.id)
+
+  if (index === -1) return currentItem
+
+  return list[(index + 1) % list.length] // loop
+}
+
+function getPrevItem(currentItem, categoryKey) {
+  const list = DATA[categoryKey]
+  const index = list.findIndex(i => i.id === currentItem.id)
+
+  if (index === -1) return currentItem
+
+  return list[(index - 1 + list.length) % list.length]
+}
+
+function nextProject() {
+  if (!detailItem.value) return
+  detailItem.value = getNextItem(detailItem.value, 'projects')
+}
+
+function prevProject() {
+  if (!detailItem.value) return
+  detailItem.value = getPrevItem(detailItem.value, 'projects')
+}
+
+function nextUnfold() {
+  if (!unfoldDetailItem.value) return
+  unfoldDetailItem.value = getNextItem(unfoldDetailItem.value, 'unfold')
+}
+
+function prevUnfold() {
+  if (!unfoldDetailItem.value) return
+  unfoldDetailItem.value = getPrevItem(unfoldDetailItem.value, 'unfold')
+}
+
+function nextSketch() {
+  if (!sketchDetailItem.value) return
+  sketchDetailItem.value = getNextItem(sketchDetailItem.value, 'sketches')
+}
+
+function prevSketch() {
+  if (!sketchDetailItem.value) return
+  sketchDetailItem.value = getPrevItem(sketchDetailItem.value, 'sketches')
+}
+
 </script>
 
 <template>
   <div class="pv" :class="{ open: isOpen }">
     <button
-      v-if="!detailOpen && !unfoldDetailOpen"
+      v-if="!detailOpen && !unfoldDetailOpen && !sketchDetailOpen"
       class="pv-back"
       type="button"
       @click="emit('close')"
@@ -104,13 +169,26 @@ function closeUnfoldDetail() {
   :open="detailOpen"
   :item="detailItem"
   @close="closeDetail"
+  @next="nextProject"
+  @prev="prevProject"
 />
 
 <PortfolioUnfoldDetail
   :open="unfoldDetailOpen"
   :item="unfoldDetailItem"
   @close="closeUnfoldDetail"
+  @next="nextUnfold"
+  @prev="prevUnfold"
 />
+
+<PortfolioSketchDetail
+  :open="sketchDetailOpen"
+  :item="sketchDetailItem"
+  @close="closeSketchDetail"
+  @next="nextSketch"
+  @prev="prevSketch"
+/>
+
 </template>
 
 <style scoped>

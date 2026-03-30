@@ -33,10 +33,11 @@ export const portfolioContent = {
       gallery: [
         '/projects/data_drama1.png',
         '/projects/data_drama2.JPG',
-        '/projects/data_drama3.JPG'
+        '/projects/data_drama3.JPG',
+        '/projects/data_drama4.jpg'
       ],
 
-      galleryLayout: ['small', 'small', 'wide'],
+      galleryLayout: ['small', 'small', 'wide', 'wide'],
 
       theme: {
         bg: '#b92a06e8'
@@ -50,6 +51,8 @@ export const portfolioContent = {
       }
     },
 
+    /* Doubt it _____________________________________________________________________________________ */
+
   {
   id: 'doubt-it',
   title: 'Doubt It',
@@ -58,7 +61,7 @@ export const portfolioContent = {
   displayWord: 'Veritas',
   meta: 'Interactive Website / AI / Concept Design',
 
-  statement: 'Powered by AI and low expectations',
+  statement: 'The truth-checking app for the post-truth era',
 
   sideHighlight: 'Two modes, two versions of Veritas',
 
@@ -77,19 +80,26 @@ export const portfolioContent = {
   ],
 
   extraText: [
-    'Conceptually, the project is grounded in questions of misinformation, algorithmic authority, and the human tendency to trust machine-generated outputs. Inspired by speculative design and critical media practices, “Doubt It” investigates how truth is not only computed, but also performed and framed.',
-    'Rather than functioning as a reliable fact-checking tool, the project acts as a reflective space. It invites users to question their own perception and to recognize how easily seemingly objective systems can influence judgment and belief.'
-  ],
+  'Conceptually, the project is grounded in questions of misinformation, algorithmic authority, and the human tendency to trust machine-generated outputs. Inspired by speculative design and critical media practices, “Doubt It” investigates how truth is not only computed, but also performed and framed.',
+  'A central influence for the project is the idea of a post-truth society — a condition in which objective facts become less influential than personal beliefs, emotions, and narratives. In this context, truth is no longer something stable or universally agreed upon, but something that can be shaped, distorted, or emotionally charged. “Doubt It” translates this dynamic into an interactive experience: while Veritas appears to deliver clear, binary judgments, its tone, mood, and behavior subtly undermine the idea of a neutral authority. The system exposes how easily trust can be constructed through confidence, language, and interface design, even when the underlying “truth” remains ambiguous. By confronting users with a system that feels authoritative yet unstable, the project reflects on how perception, emotion, and presentation often outweigh objective reality in contemporary digital environments.',
+  'Rather than functioning as a reliable fact-checking tool, the project acts as a reflective space. It invites users to question their own perception and to recognize how easily seemingly objective systems can influence judgment and belief.'
+],
 
   image: '/projects/doubt_it1.png',
 
   gallery: [
     '/projects/doubt_it2.png',
     '/projects/doubt_it3.png',
-    '/projects/doubt_it_3.png'
+    '/projects/doubt_it4.png',
+    '/projects/doubtit5.png',
+    '/projects/doubtit6.png',
+    '/projects/doubtit7.png'
   ],
 
-  galleryLayout: ['small', 'small', 'wide'],
+  galleryLayout: ['small', 'small', 'wide', 'wide', 'wide', 'wide'],
+
+
+  videoEmbed: 'https://www.youtube.com/embed/8Umh67xbzcw?rel=0&modestbranding=1',
 
   theme: {
     bg: '#2b2727e9'
@@ -102,6 +112,8 @@ export const portfolioContent = {
     galleryTitle: 'Interface'
   }
 },
+
+/* beattheBEAT_____________________________________________________________________________________ */ 
 
 {
   id: 'beat-the-beat',
@@ -135,15 +147,17 @@ extraText: [
   'Beyond entertainment, the game examines reaction speed, focus, and hand-eye coordination. It creates a space where players adapt to constantly shifting patterns, highlighting how rhythm and cognition intersect in interactive systems.'
 ],
 
-image: '/projects/beat_the_beat_1.png',
+image: '/projects/beatthebeat.png',
 
 gallery: [
-  '/projects/beat_the_beat_1.png',
-  '/projects/beat_the_beat_2.png',
-  '/projects/beat_the_beat_3.png'
+  '/projects/beatthebeat1.png',
+  '/projects/beatthebeat2.png'
 ],
 
-galleryLayout: ['small', 'small', 'wide'],
+galleryLayout: ['wide', 'wide'],
+
+videoEmbed: 'https://www.youtube.com/embed/Qtr3uv3kblk?rel=0&modestbranding=1',
+
 
 theme: {
   bg: '#033976eb'
@@ -157,59 +171,7 @@ sections: {
 }
 },
 
-{
-id: 'aint-nobody-got-time',
-title: "AIn't nobody got time for that",
-
-layout: 'editorial',
-displayWord: 'Podcast',
-meta: 'AI / Audio / Concept Format',
-
-statement: 'Two AIs. One mission: understand humans.',
-
-sideHighlight: 'A podcast where AI analyzes human absurdity',
-
-description: [
-  '"AIn’t nobody got time for that" is an experimental podcast format in which two AI personalities discuss and analyze everyday human behavior. Developed as part of the seminar “Digital Creativity”, the project explores how AI can be used not only as a tool, but as a creative voice in digital media.',
-  'Each episode revolves around a simple, almost trivial question — why humans stay awake when tired, avoid the gym, overbuy food, or repeatedly press elevator buttons. Through dialogue, the AIs attempt to rationalize these behaviors, exposing the contrast between logical systems and emotional decision-making.'
-],
-
-sideText: [
-  'The podcast is driven by two distinct AI characters: Byte, a hyper-rational, efficiency-driven entity, and Brain, a more intuitive and speculative counterpart. Their contrasting perspectives create a dynamic tension between logic and human irrationality.',
-  '- AI-generated dialogue and narrative structure',
-  '- Character-driven storytelling (Byte vs. Brain)',
-  '- Focus on everyday human behavior and micro-decisions',
-  '- Scripted episodes with modular, repeatable format',
-  '- Tone: humorous, analytical, slightly absurd',
-  '- Audio format designed for scalable content production'
-],
-
-extraText: [
-  'Conceptually, the project reflects on how artificial intelligence interprets human behavior when stripped of emotional context. What appears irrational or inefficient from an algorithmic perspective often reveals deeper layers of meaning, such as comfort, habit, or social conditioning.',
-  'Rather than mocking human behavior, the podcast creates a subtle inversion: AI becomes the observer, and humans the subject of analysis. This shift highlights the limitations of purely logical systems and raises questions about whether “efficiency” is truly the most relevant metric for understanding human life.'
-],
-
-image: '/projects/aint_nobody_1.png',
-
-gallery: [
-  '/projects/aint_nobody_1.png',
-  '/projects/aint_nobody_2.png',
-  '/projects/aint_nobody_3.png'
-],
-
-galleryLayout: ['small', 'small', 'wide'],
-
-theme: {
-  bg: '#38224de1'
-},
-
-sections: {
-  introTitle: 'Concept',
-  sideTitle: 'Format',
-  extraTitle: 'Reflection',
-  galleryTitle: 'Episodes'
-}
-},
+/* Im Fluss der Schuld_____________________________________________________________________________________ */
 
 {
 id: 'im-fluss-der-schuld',
@@ -261,6 +223,7 @@ sections: {
 }
 },
 
+/* KOPFLOS_____________________________________________________________________________________ */ 
 {
 id: 'kopflos',
 title: 'KOPFLOS',
@@ -285,18 +248,27 @@ sideText: [
 
 extraText: [
   'My role within the project focused on concept development, directing, and visual storytelling. I created the storyboard, led the direction of the film, and was responsible for camera work in selected scenes. I was also involved in the editing process and contributed to the final color grading.',
-  'The collaborative workflow played a central role in shaping the final outcome. Responsibilities were distributed across the team, covering cinematography, sound recording, sound design, editing, production organization, and acting. This collective process allowed the film to evolve through continuous refinement and shared creative decisions.'
+  'The collaborative workflow played a central role in shaping the final outcome. Responsibilities were distributed across the team, covering cinematography, sound recording, sound design, editing, production organization, and acting. This collective process allowed the film to evolve through continuous refinement and shared creative decisions.',
+  'Created in collaboration with Alban, Pascal, Laura, Merdad, and Leon.'
 ],
 
-image: '/projects/kopflos_1.png',
+image: '/projects/kopflos_poster.jpg',
 
 gallery: [
-  '/projects/kopflos_1.png',
-  '/projects/kopflos_2.png',
-  '/projects/kopflos_3.png'
+  '/projects/kopflos_1.jpg',
+  '/projects/kopflos_2.jpg',
+  '/projects/kopflos_3.jpg',
+  '/projects/kopflos_4.jpg',
+  '/projects/kopflos_5.jpg',
+  '/projects/kopflos_6.jpg',
+  '/projects/kopflos_7.jpg',
+  '/projects/kopflos_8.jpg',
+  '/projects/kopflos_9.jpg'
 ],
 
-galleryLayout: ['small', 'small', 'wide'],
+galleryLayout: ['wide', 'wide', 'wide', 'wide', 'wide', 'wide', 'wide', 'wide', 'wide'],
+
+videoEmbed: 'https://www.youtube.com/embed/udYwmdJRym4?rel=0&modestbranding=1',
 
 theme: {
   bg: '#dab10bef'
@@ -310,6 +282,7 @@ sections: {
 }
 },
 
+/* A Wanderer’s Journey_____________________________________________________________________________________ */
 {
 id: 'a-wanderers-journey',
 title: "A Wanderer’s Journey",
@@ -340,12 +313,21 @@ extraText: [
 image: '/projects/wanderers0.png',
 
 gallery: [
-  '/projects/wanderers1.png',
+  '/projects/wanderers1.jpg',
   '/projects/wanderers2.png',
-  '/projects/wanderers3.png'
+  '/projects/wanderers3.jpg',
+  '/projects/wanderers4.png',
+  '/projects/wanderers5.jpg',
+  '/projects/wanderers6.jpg',
+  '/projects/wanderers7.png',
+  '/projects/wanderers8.jpg',
+  '/projects/wanderers9.jpg'
+
 ],
 
-galleryLayout: ['wide', 'wide', 'wide'],
+galleryLayout: ['wide', 'wide', 'wide', 'wide', 'wide', 'wide', 'wide', 'wide', 'wide'],
+
+videoEmbed: 'https://www.youtube.com/embed/YYXO_XU3W0A?rel=0&modestbranding=1',
 
 theme: {
   bg: '#0859bde5'
@@ -355,34 +337,247 @@ sections: {
   introTitle: 'Concept',
   sideTitle: 'Visual Language',
   extraTitle: 'Narrative',
-  galleryTitle: 'Storyboard'
+  galleryTitle: 'Film Stills'
 }
 
+},
+
+/* AIn't nobody got time for that_____________________________________________________________________________________ */ 
+{
+id: 'aint-nobody-got-time',
+title: "AIn't nobody got time for that",
+
+layout: 'editorial',
+displayWord: 'Podcast',
+meta: 'AI / Audio / Concept Format',
+
+statement: 'Two AIs. One mission: understand humans.',
+
+sideHighlight: 'A podcast where AI analyzes human absurdity',
+
+description: [
+  '"AIn’t nobody got time for that" is an experimental podcast format in which two AI personalities discuss and analyze everyday human behavior. Developed as part of the seminar “Digital Creativity”, the project explores how AI can be used not only as a tool, but as a creative voice in digital media.',
+  'Each episode revolves around a simple, almost trivial question — why humans stay awake when tired, avoid the gym, overbuy food, or repeatedly press elevator buttons. Through dialogue, the AIs attempt to rationalize these behaviors, exposing the contrast between logical systems and emotional decision-making.'
+],
+
+sideText: [
+  'The podcast is driven by two distinct AI characters: Byte, a hyper-rational, efficiency-driven entity, and Brain, a more intuitive and speculative counterpart. Their contrasting perspectives create a dynamic tension between logic and human irrationality.',
+  '- AI-generated dialogue and narrative structure',
+  '- Character-driven storytelling (Byte vs. Brain)',
+  '- Focus on everyday human behavior and micro-decisions',
+  '- Scripted episodes with modular, repeatable format',
+  '- Tone: humorous, analytical, slightly absurd',
+  '- Audio format designed for scalable content production'
+],
+
+extraText: [
+  'Conceptually, the project reflects on how artificial intelligence interprets human behavior when stripped of emotional context. What appears irrational or inefficient from an algorithmic perspective often reveals deeper layers of meaning, such as comfort, habit, or social conditioning.',
+  'Rather than mocking human behavior, the podcast creates a subtle inversion: AI becomes the observer, and humans the subject of analysis. This shift highlights the limitations of purely logical systems and raises questions about whether “efficiency” is truly the most relevant metric for understanding human life.'
+],
+
+image: '/projects/bnb0.jpg',
+
+gallery: [
+  '/projects/bnb.jpg'
+],
+
+galleryLayout: ['wide'],
+
+ videoEmbed: ' https://www.youtube.com/embed/SaN878ohb4A?rel=0&modestbranding=1 ', 
+
+theme: {
+  bg: '#38224de1'
+},
+
+sections: {
+  introTitle: 'Concept',
+  sideTitle: 'Format',
+  extraTitle: 'Reflection',
+  galleryTitle: 'Episodes'
+}
+},
+/* Save the Astronaut_____________________________________________________________________________________ */
+
+{
+id: 'save-the-astronaut',
+title: 'Save the Astronaut',
+
+layout: 'editorial',
+displayWord: 'Astronaut',
+meta: 'Game Design / Unreal Engine / C++',
+
+statement: 'A puzzle between urgency and precision',
+
+sideHighlight: 'Concept, visual design, and partial implementation of an 8-bit puzzle game',
+
+description: [
+  '"Save the Astronaut" is a 2D puzzle game set in space, where players must rescue a drifting astronaut by constructing a continuous connection through a rotating tile system. Inspired by classic pipe-connection mechanics, the game combines logical problem-solving with time-based pressure.',
+  'Each round presents a new randomized grid, requiring players to quickly analyze patterns and rotate tiles to form a valid path before time runs out. The gameplay balances strategic thinking with urgency, creating a dynamic and repeatable experience.'
+],
+
+sideText: [
+  'The project was developed in Unreal Engine using C++, focusing on core gameplay mechanics such as tile rotation, path validation, and a timer-driven game loop. A scoring system rewards successful rescues, while increasing pressure challenges the player’s speed and accuracy.',
+  'Visually, the game embraces an 8-bit aesthetic, translating the space setting into a minimal, nostalgic style. Sound design and UI elements support the gameplay loop, creating a cohesive and responsive player experience.'
+],
+
+extraText: [
+  'My contribution to the project centered on concept development and visual design. I defined the core gameplay idea and designed all in-game assets, shaping the overall aesthetic and user experience. I was also involved in parts of the implementation, contributing to selected gameplay mechanics and logic.',
+  'Developed in collaboration with Rasmus, Laura, and Leon.'
+],
+
+image: '/projects/save_the_astronaut.png',
+
+gallery: [
+  '/projects/sta.png',
+  '/projects/sta1.png',
+],
+
+galleryLayout: ['wide', 'wide',],
+
+theme: {
+  bg: '#23700ee0'
+},
+
+sections: {
+  introTitle: 'Concept',
+  sideTitle: 'Gameplay',
+  extraTitle: 'My Role',
+  galleryTitle: 'Interface'
+}
 }
 
 
   ],
 
-  
 
+/* UNFOLD_____________________________________________________________________________________ */
 
   unfold: [
   {
     id: 'unfold-01',
-    title: 'UNFOLD // 01',
-    meta: 'Visual / Study / 2026',
-    description: 'A quiet visual fragment exploring surface, structure and spatial rhythm.',
-    image: '/unfold/thank_god.png',
+    title: 'Thank God // 01',
+    meta: 'Visual / Poster / 2025',
+  description: 'A stark, high-contrast composition confronting fragility, decay, and the illusion of permanence. Organic forms dissolve into rough textures and plastic surfaces, while the phrase “Thank God we are not forever” introduces a tension between relief and unease. The poster explores mortality as both burden and release, oscillating between destruction and quiet acceptance.',    
+  image: '/unfold/thank_god.png',
+    theme: {
+      bg: '#161616e4'
+    }
+  },
+
+    {
+    id: 'unfold-02',
+    title: 'Everything Sacred// 02',
+    meta: 'Visual / Poster / 2025',
+    description: 'A reflection on the thin line between reverence and destruction. What is declared sacred often demands sacrifice, revealing how devotion and violence can coexist within the same belief system.',    image: '/unfold/sacred.png',
     theme: {
       bg: '#121314e4'
     }
+  },
+
+  {
+  id: 'unfold-03',
+  title: 'Monopoly Money // 03',
+  meta: 'Visual / Poster / 2025',
+  description: 'A critique of wealth as abstraction, where money loses its connection to real value and becomes a game of accumulation. Inspired by the logic of Monopoly, it reflects on how capital is treated as endless, detached, and consequence-free, turning systems of power into something almost playful — until the stakes become real.',
+  image: '/unfold/monopolymoney.png',
+  theme: {
+    bg: '#0f1712e1'
   }
+},
+
+{
+  id: 'unfold-04',
+  title: 'Nothing’s New // 04',
+  meta: 'Visual / Poster / 2025',
+  description: 'A reflection on repetition and the illusion of progress. Ideas, patterns, and histories resurface in new forms, suggesting that what feels new is often just a reconfiguration of what already exists.',
+  image: '/unfold/nothings_new.png',
+  theme: {
+    bg: '#1c3affe0'
+  }
+},
+
+{
+  id: 'unfold-05',
+  title: 'The Hand That Feeds // 05',
+  meta: 'Visual / Poster / 2025',
+  description: 'An expression of resistance against systems that exploit under the guise of provision. It reflects on power structures that sustain themselves by withholding, where feeding becomes control and dependence turns into quiet violence.',
+  image: '/unfold/thehandthatfeeds2.png',
+  theme: {
+    bg: '#220606ea'
+  }
+},
+
+{
+  id: 'unfold-06',
+  title: 'Nonsense // 06',
+  meta: 'Visual / Poster / 2025',
+  description: 'A quiet reflection on the pressure to find meaning in everything. It suggests that not all things need to be understood, embracing ambiguity and the freedom in letting go of coherence.',
+  image: '/unfold/nonsense.png',
+  theme: {
+    bg: '#2c505ee3'
+  }
+},
+
+{
+  id: 'unfold-07',
+  title: 'But why...? // 07',
+  meta: 'Visual / Poster / 2025',
+  description: 'A reflection on questioning imposed paths and the search for personal meaning. It captures the moment of pause between direction and doubt, where stepping outside expectation becomes the first act of freedom.',
+  image: '/unfold/butwhy.png',
+  theme: {
+    bg: '#12171de7'
+  }
+},
+
+{
+  id: 'unfold-08',
+  title: 'Fix // 08',
+  meta: 'Visual / Poster / 2025',
+  description: 'A reflection on generational weight and inherited responsibility. It questions the expectation that damage must be repaired by those who did not cause it, emphasizing the quiet burden placed on those who come after.',
+  image: '/unfold/fix.png',
+  theme: {
+    bg: '#1f281de9'
+  }
+},
+
+{
+  id: 'unfold-09',
+  title: 'Fight // 09',
+  meta: 'Visual / Poster / 2025',
+  description: 'A call to resist and defend what should not have to be fought for. It reflects the tension between vulnerability and strength, where the demand for basic rights becomes an act of confrontation.',
+  image: '/unfold/fight.png',
+  theme: {
+    bg: '#991010e9'
+  }
+},
+
+{
+  id: 'unfold-10',
+  title: 'My Fishbowl is Empty // 10',
+  meta: 'Visual / Poster / 2025',
+  description: 'An exploration of emotional numbness and disconnection. The fishbowl, once a contained world, becomes a metaphor for a mind that feels emptied out — where thoughts drift without direction and presence fades into detachment.',
+  image: '/unfold/myfishbowlisempty.png',
+  theme: {
+    bg: '#132d70e6'
+  }
+}
+
+
 ],
 
   sketches: [
     {
       id: 'sketch-01',
-      title: 'Sketch// 01'
+      title: 'You',
+      meta: 'Sketch / 2025',
+      image: 'sketches/oilpainting.jpg',
+      description: [
+      'A study of self-perception, where clarity is fragmented and constantly shifting.',
+       'Understanding becomes a solitary process — the realization that the only one who can truly make sense of you is yourself.'
+  ],
+  theme: {
+    bg: '#1b1b1bf0'
+  }
     }
   ]
-}
+} 

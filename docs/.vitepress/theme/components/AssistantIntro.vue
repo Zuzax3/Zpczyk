@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import PortfolioView from './PortfolioView.vue'
 import AboutChat from './AboutChat.vue'
+import TalkVN from './TalkVN.vue'
 
 /**
  * STATES:
@@ -25,6 +26,8 @@ const showSheet = computed(() =>
 
 const assistantPose = ref('idle')
 const assistantText = ref('')
+let homeLinkEl: Element | null = null
+let homeLinkRetryId: number | null = null
 
 const heroImg = computed(() => {
   if (state.value === 'portfolio.detail') return '/assistant_back.png'
@@ -36,22 +39,27 @@ function setState(next: string) {
   state.value = next
 }
 
+function resetHome() {
+  assistantPose.value = 'idle'
+  assistantText.value = ''
+  setState('home.idle')
+}
+
 function onSceneClick(e: MouseEvent) {
-  if (state.value === 'about.chat') return
+  if (state.value === 'about.chat' || state.value === 'talk.vn') return
 
   const target = e.target as HTMLElement | null
   if (target?.closest?.('button')) return
 
   if (state.value === 'home.idle') {
     assistantPose.value = 'active'
-    assistantText.value = 'This is a space for work. And the gaps around it.'
+    assistantText.value = 'You’re looking at it now. A portfolio, more or less. Where you begin is up to you.'
     setState('home.speaking')
     return
   }
 
   if (state.value === 'home.speaking') {
-    assistantText.value = 'What do you want to do?'
-    setState('home.menu')
+    openHomeMenu()
     return
   }
 
@@ -68,7 +76,7 @@ function chooseHomeAction(which: string) {
   }
 
   if (which === 'talk') {
-    assistantText.value = 'Alright. A small conversation. Keep it honest.'
+    assistantPose.value = 'active'
     setState('talk.vn')
     return
   }
@@ -80,9 +88,9 @@ function chooseHomeAction(which: string) {
 }
 
 const introLines = [
-  'Yes. A portfolio. Not a confession, but close.',
-  'Work, plus the noise around it.',
-  'Pick a door. I’ll pretend it was your idea.'
+'Yes. A portfolio.',
+'A collection of work, decisions, and the forms they ended up taking.',
+'You can choose where to begin. The order is not important.'
 ]
 
 const introIndex = ref(0)
@@ -93,6 +101,41 @@ function startPortfolioIntro() {
   assistantText.value = introLines[introIndex.value]
   setState('portfolio.intro')
 }
+
+function openHomeMenu() {
+  assistantText.value = 'You can go straight to the work, stay for a conversation, or ask for some context.'
+  setState('home.menu')
+}
+
+function onHomeLinkClick() {
+  resetHome()
+}
+
+function bindHomeLink() {
+  const el = document.querySelector('.VPNavBarTitle a, a.VPNavBarTitle')
+  if (!el || el === homeLinkEl) return
+
+  if (homeLinkEl) {
+    homeLinkEl.removeEventListener('click', onHomeLinkClick)
+  }
+
+  homeLinkEl = el
+  homeLinkEl.addEventListener('click', onHomeLinkClick)
+}
+
+onMounted(() => {
+  bindHomeLink()
+  homeLinkRetryId = window.setTimeout(bindHomeLink, 600)
+})
+
+onBeforeUnmount(() => {
+  if (homeLinkEl) {
+    homeLinkEl.removeEventListener('click', onHomeLinkClick)
+  }
+  if (homeLinkRetryId !== null) {
+    window.clearTimeout(homeLinkRetryId)
+  }
+})
 
 function advancePortfolioIntro() {
   if (introIndex.value < introLines.length - 1) {
@@ -107,8 +150,14 @@ function advancePortfolioIntro() {
 
 <template>
 <section class="hero" aria-label="assistant hero" @click="onSceneClick">
-  <div class="hero-media">
-      <img class="hero-img" :src="heroImg" alt="" draggable="false" />
+    <div class="hero-media">
+      <img
+        class="hero-img"
+        :class="{ 'hero-img-shift': state === 'about.chat' }"
+        :src="heroImg"
+        alt=""
+        draggable="false"
+      />
     </div>
 
     <div v-if="showSheet" class="overlay overlay-torso">
@@ -137,14 +186,19 @@ function advancePortfolioIntro() {
 
     <PortfolioView
       v-if="state === 'portfolio.view' || state === 'portfolio.detail'"
-      @close="setState('home.menu')"
+      @close="openHomeMenu"
       @open-detail="setState('portfolio.detail')"
       @close-detail="setState('portfolio.view')"
     />
 
     <AboutChat
       v-if="state === 'about.chat'"
-      @close="setState('home.menu')"
+      @close="openHomeMenu"
+    />
+
+    <TalkVN
+      v-if="state === 'talk.vn'"
+      @close="openHomeMenu"
     />
   </section>
 </template>
@@ -184,6 +238,12 @@ function advancePortfolioIntro() {
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: contain;
+  transition: transform 520ms cubic-bezier(.2,.9,.2,1), left 520ms cubic-bezier(.2,.9,.2,1);
+}
+
+.hero-img-shift{
+  left: 25%;
+  transform: translate(-50%, -50%);
 }
 
 .sheet{
