@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { withBase } from 'vitepress'
 import PortfolioView from './PortfolioView.vue'
 import AboutChat from './AboutChat.vue'
 import TalkVN from './TalkVN.vue'
@@ -29,10 +30,15 @@ const assistantText = ref('')
 let homeLinkEl: Element | null = null
 let homeLinkRetryId: number | null = null
 
+// ✅ Bilder korrekt über GitHub Pages Base laden
+const assistantBack = withBase('/assistant_back.png')
+const assistantActive = withBase('/assistant_active.png')
+const assistantIdle = withBase('/assistant_idle.png')
+
 const heroImg = computed(() => {
-  if (state.value === 'portfolio.detail') return '/assistant_back.png'
-  if (assistantPose.value === 'active') return '/assistant_active.png'
-  return '/assistant_idle.png'
+  if (state.value === 'portfolio.detail') return assistantBack
+  if (assistantPose.value === 'active') return assistantActive
+  return assistantIdle
 })
 
 function setState(next: string) {
@@ -88,9 +94,9 @@ function chooseHomeAction(which: string) {
 }
 
 const introLines = [
-'Yes. A portfolio.',
-'A collection of work, decisions, and the forms they ended up taking.',
-'You can choose where to begin. The order is not important.'
+  'Yes. A portfolio.',
+  'A collection of work, decisions, and the forms they ended up taking.',
+  'You can choose where to begin. The order is not important.'
 ]
 
 const introIndex = ref(0)
