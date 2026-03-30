@@ -1,8 +1,8 @@
 export default {
-  base: '/Zpczyk/'
+  base: '/Zpczyk/',
   title: 'Zpczyk//',
   description: 'Portfolio',
   themeConfig: {
-    appearance: false
+    // ...
   }
 }
